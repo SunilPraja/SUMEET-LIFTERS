@@ -15,6 +15,33 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// Mobile Nav Menu
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+if (mobileMenuBtn && mobileMenu) {
+  const menuIcon = mobileMenuBtn.querySelector('i');
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('is-open');
+    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    menuIcon.classList.remove('fa-xmark');
+    menuIcon.classList.add('fa-bars');
+  }
+
+  function toggleMobileMenu() {
+    const isOpen = mobileMenu.classList.toggle('is-open');
+    mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    menuIcon.classList.toggle('fa-bars', !isOpen);
+    menuIcon.classList.toggle('fa-xmark', isOpen);
+  }
+
+  mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+  mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileMenu));
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) closeMobileMenu();
+  });
+}
+
 // Review Slider
 const reviewTrack = document.querySelector('.review-slider-track');
 if (reviewTrack) {
